@@ -1,0 +1,132 @@
+﻿@model ArtShop.Models.ViewModels.OrderDetailViewModel
+@using ArtShop.Utility
+
+<form method="post" asp-action="OrderPickup" asp-controller="Order" asp-area="Customer" asp-route-orderId="@Model.OrderHeader.Id">
+    <div class="container row border bg-1" style="width:100%;">
+        <div class="col-lg-8 col-lg-12" style="border-right:1px solid #bbb9b9">
+            <br />
+            <input type="hidden" asp-for="OrderHeader.Id" />
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Tên người nhận:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input asp-for="OrderHeader.PickupName" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Email:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input asp-for="OrderHeader.ApplicationUser.Email" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Số điện thoại:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input asp-for="OrderHeader.PickupPhoneNumber" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Thành tiền:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input asp-for="OrderHeader.OrderTotal" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Ngày giao hàng:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input value="@Model.OrderHeader.PickupDate.ToShortDateString()" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Địa chỉ:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input asp-for="OrderHeader.Address" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Thành phố:</label>
+                </div>
+                <div class="col-lg-9">
+                    <input asp-for="OrderHeader.City" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-3">
+                    <label>Ghi chú:</label>
+                </div>
+                <div class="col-lg-9">
+                    <textarea asp-for="OrderHeader.Comment" disabled class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-4 col-lg-12">
+            <h4 class="d-flex justify-content-between align-content-center mb-3">
+                <span class="text-muted">Đơn hàng: </span>
+                <span class="badge badge-secondary badge-pill">@Model.OrderHeader.Id</span>
+            </h4>
+            <ul class="list-group mb-3">
+                @{ var total = 0.0;}
+
+                @foreach (var details in Model.OrderDetail)
+                {
+                    <li class="list-group-item">
+                        <div>
+                            <h6 class="my-0">@details.Name</h6>
+                            <small class="text-muted">Số lượng: @details.Count</small>
+                        </div>
+                        <small class="text-muted">Giá tiền:</small>
+                        <span class="text-muted">@(details.Price * details.Count)</span>
+                        @{ total += (details.Price * details.Count);}
+                    </li>
+                }
+
+
+
+                <li class="list-group-item d-flex  d-flex justify-content-between bg-light">
+                    <span class="text-info">Tổng cộng:   </span>
+                    <strong class="text-info">@Model.OrderHeader.OrderTotal đ</strong>
+                </li>
+                <li>
+                    <span class="text-info">Hình thức thanh toán:   </span>
+                    <strong class="text-info">@Model.OrderHeader.Httt</strong>
+                </li>
+            </ul>
+            @if (User.IsInRole(StaticDetail.AdminUser))
+            {
+                @if (Model.OrderHeader.Status.Equals(StaticDetail.StatusSubmitted) || Model.OrderHeader.Status.Equals(StaticDetail.PaymentStatusPending))
+                {   <button type="submit" class="btn btn-success form-control">Xác nhận</button>
+                    <button type="submit" asp-action="Cancel" asp-controller="Order" asp-route-id="@Model.OrderHeader.Id" class="btn btn-danger form-control">
+                    Hủy đơn hàng
+                    </button>
+                }
+            }
+            else
+            {
+
+                <button type="submit" disabled class="btn btn-info form-control" style="background-color:dodgerblue;">@Model.OrderHeader.Status</button>
+            }
+        </div>
+    </div>
+</form>

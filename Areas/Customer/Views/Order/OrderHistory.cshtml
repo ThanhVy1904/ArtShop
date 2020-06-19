@@ -1,0 +1,139 @@
+﻿@model ArtShop.Models.ViewModels.OrderListViewModel
+
+@{
+    ViewData["Title"] = "Lịch sử đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pb-100"></div>
+
+<div>
+    <div>
+        <br /><br />
+        <div class="border bg-1 Padding10">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="text-info">Danh sách đơn hàng</h2>
+                </div>
+                
+            </div>
+            <br />
+            <hr />
+            <div>
+                @if (Model.Orders.Count() > 0)
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-secondary">
+                            <th>
+                                <p>Mã đơn hàng</p>
+                            </th>
+                            <th>
+                                <p>Tên người nhận</p>
+                            </th>
+                            <th>
+                                <p>Email</p>
+                            </th>
+                            <th>
+                                <p>Ngày giao hàng</p>
+                            </th>
+                            <th>
+                                <p>Thành tiền</p>
+                            </th>
+                            
+                            <th>
+                                <p>Tình trạng</p>
+                            </th>
+                            <th>
+
+                            </th>
+
+
+                        </tr>
+                        @foreach (var item in Model.Orders)
+                        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.OrderHeader.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.OrderHeader.PickupName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.OrderHeader.ApplicationUser.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.OrderHeader.PickupDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.OrderHeader.OrderTotal)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(m => item.OrderHeader.Status)
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success anchorDetail" data-id="@item.OrderHeader.Id" data-toggle="modal">
+                                <i class="far fa-list-alt"> Chi tiết</i>
+                            </button>
+                        </td>
+                    </tr>
+                        }
+                    </table>
+                    <div page-model="@Model.Pagings" page-classes-enabled="true" page-class="btn border" page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group float-right"></div>
+                    <br />
+                }
+                else
+                {
+                    <p>Không có đơn hàng, hãy quay lại để mua thứ gì đó nhé...</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:100px;">
+    <div class="modal-dialog-centered modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="justify-content:center; display:flex; background-color:orange;">
+                <h5 class="modal-title center" style="font-family:.VnRevue; font-size:18px; color:white;">Chi tiết đơn hàng</h5>
+            </div>
+
+            <div class="modal-body" style="justify-content:center; display:flex;" id="myModalContent">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" style="width:20%; background-color:gray; border:none;" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script>
+    var PostBackUrl = '/Customer/Order/OrderDetails';
+
+    $(function () {
+        $(".anchorDetail").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: PostBackUrl,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                cache: false,
+                datatype: "json",
+                success: function (data) {
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed");
+                }
+            });
+        });
+    })
+</script>
+}

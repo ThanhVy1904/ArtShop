@@ -1,0 +1,31 @@
+﻿@model ArtShop.Models.ViewModels.OrderDetailViewModel
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    
+        <div class="pb-150"></div>
+        
+        <div class=" bg-1">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="text-info" style="font-family:.VnRevue; font-size:25px;">Đặt hàng thành công</h2>
+                </div>
+                <div class="col-lg-3 text-right">
+                    <a asp-action="Index" asp-controller="Home" style="background-color:orange; border:none;" class="btn btn-success form-control"><strong>Tiếp tục mua hàng</strong></a>
+                </div>
+            </div>
+
+            @if(Model.OrderHeader != null)
+            {
+                <div style="color:maroon; padding:3px; font-family:.VnRevue; font-size:16px;">
+                    Chúc mừng! Đơn hàng của bạn đã được đặt thành công.<br />
+                </div> 
+                <partial name="_OrderDetails" model="Model" />
+            }
+            else
+            {
+                <div class="text-danger">Đã xảy ra lỗi, vui lòng thử lại.</div>
+            }
+        </div>
+    

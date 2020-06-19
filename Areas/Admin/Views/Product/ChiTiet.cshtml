@@ -1,0 +1,132 @@
+﻿@model ArtShop.Models.ViewModels.ProductViewModel
+@using ArtShop.Extensions
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="pb-100"></div>
+<br />
+<h2 class="text-info">Chi tiết sản phẩm </h2>
+<br />
+
+<!--
+<div class="border backgroundWhite row">
+    <input type="hidden" asp-for="Product.ProductId" />
+
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Product.ProductName" class="col-form-label">Tên sản phẩm:</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Product.ProductName" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Product.Description" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                @Html.TextAreaFor(m => m.Product.Description)
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Product.Price" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Product.Price" readonly class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Product.ImgUrl" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <input type="file" name="files" disabled=" " class="form-control" />
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Product.CategoryId" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <select asp-for="@Model.Product.CategoryId" id="CategoryId" asp-items="Model.Category.ToSelectListItem(Model.Product.CategoryId)" disabled class="form-control"></select>
+            </div>
+
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Product.Status" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <select asp-for="Product.Status" asp-items="Html.GetEnumSelectList<Product.EStatus>()" disabled class="form-control"></select>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-3 offset-1">
+        <img src="@Model.Product.ImgUrl" width="100%" style="border-radius:5px;border: 1px solid #bbb9b9;" />
+    </div>
+
+    <div class="col-8">
+        <div class="col-8 offset-4"></div>
+        <partial name="_DetailsAndBackToListButton" model="Model.Product.ProductId" />
+    </div>
+
+</div>
+-->
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ChiTiet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.ProductId" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Product.ProductName" class="control-label">Tên danh mục:</label>
+                <input asp-for="Product.ProductName" class="form-control" readonly />
+                <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.ImgUrl" class="col-form-label">Hình ảnh:</label>
+                <span asp-validation-for="Product.ImgUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img src="@Model.Product.ImgUrl" sizes="100%"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Description" class="control-label">Mô tả:</label>
+                <textarea style="width:400px; height:300px;" asp-for="Product.Description" class="form-control" readonly></textarea>
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.Price" class="control-label">Tên danh mục:</label>
+                <input asp-for="Product.Price" class="form-control" readonly />
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.Status" class="col-form-label"></label>
+                <select asp-for="Product.Status" asp-items="Html.GetEnumSelectList<Product.EStatus>()" disabled class="form-control"></select>
+                <span asp-validation-for="Product.Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.CategoryId" class="control-label">Tên danh mục:</label>
+                <select asp-for="@Model.Product.CategoryId" id="CategoryId" asp-items="Model.Category.ToSelectListItem(Model.Product.CategoryId)" disabled class="form-control"></select>
+                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+            </div>
+            <partial name="_DetailAndBackBtnPartial" model="Model.Product.ProductId" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Product>
+
+@if(Model.Count() > 0)
+{
+    <div class="col-lg-12">
+        <div class="row">            
+            <h3 class="" style="font-family:Arial; color:orange;">@Model.FirstOrDefault().Category.CategoryName</h3>                   
+            
+        </div>
+        
+        @foreach (var item in Model)
+        {
+         
+            <div class="col-md-3 col-sm-6 col-xs-12 pt-10">
+               <div class="sin-product">
+                   <div class="pro-image fix">
+                       <a asp-action="ProductDetail" asp-route-id="@item.ProductId" class="image"><img src="@item.ImgUrl" alt="" /></a>
+                          <div class="pro-action">
+
+                              <!--<a href="#"><i class="zmdi zmdi-shopping-cart"></i></a>   -->
+                              
+                              <a asp-action="ProductDetail" asp-route-id="@item.ProductId" class="action-btn quick-view"><i class="zmdi zmdi-eye"></i></a>
+                          </div>
+                   </div>
+                   <div class="pro-details text-center">
+                          <div class="top fix">
+                              <p class="pro-cat float-left">@item.Category.CategoryName</p>
+                              
+                          </div>
+                   <a asp-action="ProductDetail" asp-route-id="@item.ProductId" class="pro-title" style="font-family:.VnRevue;">@item.ProductName</a>
+                   <h3 class="pro-price">
+                          <span class="new" style="font-size:17px;">@item.Price</span>
+                   </h3>
+                   </div>
+               </div>
+            </div>
+                        
+         }
+    
+    </div>
+}

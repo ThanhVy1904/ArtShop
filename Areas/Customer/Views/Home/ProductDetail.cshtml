@@ -1,0 +1,111 @@
+﻿@model ArtShop.Models.ShoppingCart
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post" >
+<div class="pb-150"></div>
+<div class="col-xs-12">
+
+    <ul class="breadcrumbs">
+        <li></li>
+        <li></li>
+        <li><a asp-area="" asp-action="Index" asp-controller="Home"><span style="color: gray;">Trang chủ /</span></a></li>
+        <li><a asp-area="" asp-action="ProductIndex" asp-controller="Home"><span style="color: gray;">Sản phẩm /</span></a></li>
+        <li><span>Chi tiết sản phẩm</span></li>
+    </ul>
+</div>
+
+    <!-- Single Product Area
+    ============================================ -->
+    <div class="single-product-area pb-90 pt-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="single-product-wrap border">
+                        <div class="single-product-image">
+                            <div class="product-big-image tab-content">
+
+
+                                <div class="tab-pane active" id="pro-img-3">
+                                    <img src="@Model.Product.ImgUrl" alt="" />
+                                    <a class="pro-img-popup" href="@Model.Product.ImgUrl"><i class="zmdi zmdi-search"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="single-product-content fix">
+                            <h3 class="single-pro-title">@Model.Product.ProductName</h3>
+                            <div class="single-product-price-ratting fix">
+                                <h3 class="single-pro-price float-left">
+                                    <span class="new">@Model.Product.Price</span>
+
+                                </h3>
+
+                            </div>
+                            <p style="font-family:.VnRevue; font-size:16px;">
+                                <strong>Điều đặc biệt tại LittleFox:</strong><br />
+
+                                ☻ Sản phẩm đăng bán luôn có sẵn<br />
+                                ☺ Giao hàng cod không cần chuyển khoản<br />
+                                ☻ Được phép kiểm hàng trước khi thanh toán<br />
+                                ☺ Thoải mái đổi trả kể cả hư hỏng do vận chuyển<br />
+                                ☻ Hỗ trợ phí ship đồng giá 20K - 30K cho đơn trên 100K
+
+                            </p>
+
+                            <!--Btn Add To Cart & Số lượng -->
+                            <div class="single-product-action-quantity fix">
+                                <div class="pro-details-action float-left">
+                                    <button class="pro-details-act-btn btn-text active" type="submit"><i class="zmdi zmdi-shopping-cart"></i>Thêm vào giỏ hàng</button>
+                                    
+
+                                </div>
+                                <div class="pro-qty float-right">
+                                    <input value="1" min="1" name="Count" id="Count" class="cart-plus-minus-box" type="number" asp-for="Count" />
+                                    <span asp-validation-for="Count" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 mt-40">
+                    <div class="pro-details-tab-container fix">
+                        <div>
+                            <a style="font-family:.VnRevue; font-size:20px;"><span><strong>Mô tả</strong></span></a>
+                        </div>
+                        <div class="tab-content fix">
+                            <!-- Product Description Tab -->
+                            <div id="description" class="pro-details-tab pro-dsc-tab tab-pane active">
+                                @Html.Raw(Model.Product.Description)
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input asp-for="ProductId" hidden />
+</form>
+
+
+<!-- JS -->
+<!-- jQuery JS
+============================================ -->
+<script src="js/vendor/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap JS
+============================================ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Plugins JS
+============================================ -->
+<script src="js/plugins.js"></script>
+<!-- Particles Active JS
+============================================ -->
+<script src="js/app.js"></script>
+<!-- Main JS
+============================================ -->
+<script src="js/main.js"></script>

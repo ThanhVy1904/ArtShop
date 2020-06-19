@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "Danh mục";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="pb-100"></div>
+
+<div>
+    <div>
+        <br /><br />
+        <div class="border bg-1 Padding10">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="text-info">Quản lý danh mục</h2>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <partial name="_ThemPartial" />
+                </div>
+            </div>
+            <br />
+            <hr />
+            <div>
+                @if (Model.Count() > 0)
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-secondary">
+                            <th>
+                                <p>Tên danh mục:</p>
+                            </th>
+                            <th>
+
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(m => item.CategoryName)
+                                </td>
+                                <td>
+                                    <partial name="_TableBtnPartial" model="item.CategoryId"/>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <p>Không có danh mục tồn tại...</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

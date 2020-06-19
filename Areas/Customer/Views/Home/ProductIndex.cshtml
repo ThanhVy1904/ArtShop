@@ -1,0 +1,36 @@
+﻿@model ArtShop.Models.ViewModels.ProductIndexViewModel
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+}
+    <form method="get">
+        <!-- Home Slider
+        ============================================ -->
+        <div class="slider-area-1 top-header-space-1  pb-50">
+            <div id="mainSlider-1" class="nivoSlider slider-image">
+                <a href="#"><img src="~/img/slider/7.jpg" alt="main slider" /></a>
+                <a href="#"><img src="~/img/slider/8.jpg" alt="main slider" /></a>
+                <a href="#"><img src="~/img/slider/9.jpg" alt="main slider" /></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+
+            @Html.Editor("searchProduct", new { htmlAttributes = new { @class = "form-control", @placeholder = "Tìm kiếm sản phẩm..." } })
+        </div>
+        <div class="col-lg-3 ">
+            <button type="submit" name="submit" value="Search" class="btn btn-info">Tìm kiếm</button>
+        </div>
+
+        <div class="bg-1 container row">
+
+
+
+            @foreach (var category in Model.Category)
+            {
+                <div class="row" id="product-wrapper">
+                    <partial name="_ThumbnailAreaPartial" model="@Model.Product.Where(u => u.Category.CategoryName.Equals(category.CategoryName)).Where(s=>s.Status == "0")" />
+                </div>
+            }
+        </div>
+    </form>

@@ -1,0 +1,203 @@
+﻿@model ArtShop.Models.ViewModels.OrderDetailCart
+@using Microsoft.Extensions.Options
+@using ArtShop.Utility
+
+@inject IOptions<ArtShop.Utility.StripeSettings> Stripe
+
+@{
+    ViewData["Title"] = "Xác nhận đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post">
+    <div class="pb-150"></div>
+    <div class="col-xs-12">
+
+        <ul class="breadcrumbs">
+            <li></li>
+            <li></li>
+            <li><a asp-area="" asp-action="Index" asp-controller="Home"><span style="color: gray;">Trang chủ /</span></a></li>
+
+            <li><a asp-area="Customer" asp-action="Index" asp-controller="Cart"><span style="color: gray;">Giỏ hàng /</span></a></li>
+
+            <li><span>Xác nhận đơn hàng</span></li>
+        </ul>
+    </div>
+
+    @if (Model.listCart.Count > 0)
+    {
+
+        <input id="userId" asp-for="@Model.listCart[0].ApplicationUserId" hidden />
+
+        <!-- Checkout Area
+        ============================================ -->
+        <div class="checkout-area pb-90 pt-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="billing-details">
+                            <h4>Thông tin giao hàng</h4>
+                            <ul>
+                                <li>
+                                    <label>Tên người nhận: </label>
+                                    <input class="form-control" type="text" asp-for="@Model.OrderHeader.PickupName" id="txtName" /><hr />
+                                </li>
+                                <li>
+                                    <label>Số điện thoại: </label>
+                                    <input class="form-control" type="text" asp-for="@Model.OrderHeader.PickupPhoneNumber" id="txtPhone" /><hr />
+                                </li>
+                                <li>
+                                    <label>Địa chỉ: </label>
+                                    <input class="form-control" type="text" asp-for="@Model.OrderHeader.Address" id="txtAddress" /><hr />
+                                </li>
+                                <li>
+                                    <label>Thành phố: </label>
+                                    <input class="form-control" type="text" asp-for="@Model.OrderHeader.City" id="txtCity" /><hr />
+                                </li>
+                                <li>
+                                    <label>Ngày giao: </label>
+                                    <input class="form-control" value="" type="text" id="datepicker" asp-for="@Model.OrderHeader.PickupDate" /><hr />
+                                </li>
+
+
+
+                                <li>
+                                    <label>Ghi chú cho người bán: </label>
+                                    <textarea asp-for="@Model.OrderHeader.Comment" class="form-control" placeholder="Viết ghi chú vào đây"></textarea><hr />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="order-payment">
+                            <h4>Đơn hàng</h4>
+                            <ul class="list-group">
+                                @{ var total = 0.0;}
+                                @foreach (var details in Model.listCart)
+                                {
+                                    <li><span class="name">@details.Product.ProductName  x  @details.Count</span><span class="price">@(details.Product.Price * details.Count)</span></li>
+                                    { total += (details.Product.Price * details.Count); }
+                                }
+                                <li><span class="name" style="font-size:18px;">Tổng cộng (VND):</span><span class="price" style="font-size:18px;">@Model.OrderHeader.OrderTotal</span></li>
+                            </ul>
+                            <h4>Phương thức thanh toán</h4>
+                            <div class="panel-group" id="payment-accordion">
+                                <div class="form-group">
+
+                                    
+                                    
+                                    <input onclick="myFunction2()" type="radio" name="rdHttt" value="@StaticDetail.HtttCard" checked /><span> Sử dụng thẻ ngân hàng / thẻ VISA</span>
+
+                                </div>
+                            </div>
+                            <!--Thanh toán online-->
+                            
+                            <div >
+                                @{
+                                    var OrderTotalForStripe = Model.OrderHeader.OrderTotal;
+                                }
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                        data-key="@Stripe.Value.PublishableKey"
+                                        data-currency="vnd"
+                                        data-amount="@OrderTotalForStripe"
+                                        data-name="Little Fox Shop"
+                                        data-label="Thanh toán"
+                                        data-description="Hân hạnh được phục vụ."
+                                        data-locale="auto"
+                                        data-allow-remember-me="false"
+                                        data-panel-label="Thanh toán"
+                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                                </script>
+                                <script>
+                                    document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                                </script>
+
+
+
+                                <button class="place-order" id="btnPlaceOrder" onclick="return validateInput()" value="Thanh toán">Thanh toán</button>
+                                <div class="procced-checkout col-md-6">
+                                    <a asp-action="Index" asp-controller="Cart" asp-area="Customer" class="checkout-link" style="background-color:black; border:none;">Quay lại</a>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+    else
+    {
+        <div class="bg-1">Giỏ hàng đang trống...</div>
+    }
+
+</form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ minDate: 0, maxDate: "+1W" });
+        });
+
+        function validateInput() {
+            var dt = document.getElementById("datepicker").value;
+            var name = document.getElementById("txtName").value;
+            var phone = document.getElementById("txtPhone").value;
+            var address = document.getElementById("txtAddress").value;
+            var city = document.getElementById("txtCity").value;
+            if (dt.toString() == '') {
+                alert("Xin vui lòng chọn ngày nhận hàng.");
+                return false;
+            }
+            else {
+                if (name.toString() == '') {
+                    alert("Xin vui lòng nhập tên người nhận.");
+                    return false;
+                }
+                else {
+                    if (phone.toString() == '') {
+                        alert("Xin vui lòng nhập số điện thoại.");
+                        return false;
+                    }
+                    if (address.toString() == '') {
+                        alert("Xin vui lòng nhập địa chỉ.");
+                        return false;
+                    }
+                    else {
+                        if (city.toString() == '') {
+                            alert("Xin vui lòng nhập tên thành phố / tỉnh.");
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+        }
+        
+    </script>
+}
+
+
+<!-- JS -->
+<!-- jQuery JS
+============================================ -->
+<script src="~/js/vendor/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap JS
+============================================ -->
+<script src="~/js/bootstrap.min.js"></script>
+<!-- Plugins JS
+============================================ -->
+<script src="~/js/plugins.js"></script>
+<!-- Particles Active JS
+============================================ -->
+<script src="~/js/app.js"></script>
+<!-- Main JS
+============================================ -->
+<script src="~/js/main.js"></script>

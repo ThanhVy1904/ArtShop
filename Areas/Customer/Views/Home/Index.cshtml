@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@if (User.IsInRole(ArtShop.Utility.StaticDetail.AdminUser))
+{
+    <!-- Home Slider
+        ============================================ -->
+    <div class="slider-area-1 top-header-space-1  pb-50">
+        <div id="mainSlider-1" class="nivoSlider slider-image">
+            <a href="#"><img src="~/img/slider/7.jpg" alt="main slider" /></a>
+            <a href="#"><img src="~/img/slider/8.jpg" alt="main slider" /></a>
+            <a href="#"><img src="~/img/slider/9.jpg" alt="main slider" /></a>
+        </div>
+    </div>
+    
+    <div class="pb-100"></div>
+
+}
+else
+{
+
+
+    <style>
+        .btnshop {
+            background-color: orangered;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+            .btnshop:hover {
+                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+                color: white;
+                background-color: black;
+            }
+    </style>
+
+    <!-- Home Slider
+        ============================================ -->
+    <div class="slider-area-1 top-header-space-1  pb-50">
+        <div id="mainSlider-1" class="nivoSlider slider-image">
+            <a href="#"><img src="~/img/slider/7.jpg" alt="main slider" /></a>
+            <a href="#"><img src="~/img/slider/8.jpg" alt="main slider" /></a>
+            <a href="#"><img src="~/img/slider/9.jpg" alt="main slider" /></a>
+        </div>
+    </div>
+
+    <div class="">
+        <h1 class="text-center display-4" style="color:orange; font-family:.VnRevue; font-size:45px;">Giới thiệu</h1>
+        <p style="font-size: 20px; font-family:'Times New Roman'">
+            Hoạ cụ là yếu tố quan trọng, không thể thiếu đối với những người theo đuổi đam mê nghệ thuật.
+            Để cho ra đời những bức tranh, tác phẩm nghệ thuật, không chỉ phụ thuộc vào khả năng sáng tạo, vẽ vời của bạn, mà đồ dùng, thiết bị giúp bạn tạo nên tác phẩm đó cũng rất quan trọng.
+            Có thể kể đến một số đồ dùng không thể thiếu đối với những người đam mê hội hoạ như màu nước, màu chì, giấy vẽ... Như vậy, với mỗi người hoạ sĩ thì hoạ cụ là những đồ dùng thiết yếu, cần phải được sắm sửa thì mới có thể thực hiện, tạo ra những bức tranh đẹp.
+        </p>
+        <br />
+        <img src="~/img/blog/shop.jpg" />
+
+        <h3 style="color:orange; font-family:'Times New Roman'">Mua hoạ cụ uy tín và chất lượng tại HCM</h3>
+
+        <p style="font-size: 20px; font-family:'Times New Roman'">
+            Để tìm mua những đồ dùng đơn giản cho việc vẽ thì không khó, chúng ta có thể đến những hiệu sách, cửa hàng văn phòng phẩm để tìm mua giấy vẽ, màu vẽ, sổ vẽ… Tuy nhiên, ở những nơi đó chỉ cung cấp sản phẩm dành cho đối tượng học sinh tiểu học phục vụ cho nhu cầu học tập ở trường. Còn đối với những người muốn những sản phẩm chuyên dụng, thì cần phải tìm đến những cửa hàng bán hoạ cụ uy tín và chất lượng để hỗ trợ cho công việc chính của mình.
+            Little Fox là một trong những shop bán hoạ cụ uy tín và chất lượng nhất tại HCM trong thời điểm hiện nay. Cửa hàng luôn cập nhật những sản phẩm mới nhất như sổ vẽ màu nước, cọ vẽ màu nước, bút marker, touchliit, màu chì, màu nước… Với dòng sản phẩm cực kỳ chất lượng cũng những mẫu mã mới nhất, họa cụ Little Fox luôn cung cấp đầy đủ sản phẩm tốt, phục vụ được thị hiếu của những người đam mê nghệ thuật tại HCM cũng như ở các tỉnh, thành khác.
+        </p>
+
+        <img class="container" src="~/img/blog/shop1.jpg" />
+        <h3 style="color:orange; font-family:'Times New Roman'">Sản phẩm và dịch vụ tại Little Fox</h3>
+        <p style="font-size: 20px; font-family:'Times New Roman'">
+            Shop hoạ cụ Little Fox có đầy đủ các sản phẩm hoạ cụ cần thiết, đáp ứng được nhu cầu của người dùng. Các bạn có thể ghé thăm cửa hàng để mua sắm những món đồ cần thiết nhất cho công việc vẽ, sáng tác của mình.
+            Shop có nhận chuyển hàng qua các tỉnh, thành phố khác với mức giá vận chuyển phải chăng, tạo điều kiện thuận lợi cho các hoạ sĩ muốn đặt hàng mà không có điều kiện đến tận nơi lựa chọn sản phẩm tại shop chúng tôi.
+        </p>
+        <p style="font-size: 20px; font-family:'Times New Roman'">
+            Với niềm đam mê yêu thích nghệ thuật và từ đó tiếp thêm động lực để chúng tôi từng bước đưa shop ngày càng phát triển, đưa đến cho các khách hàng những mặt hàng họa cụ cao cấp và chất lượng nhất phù hợp đối tượng yêu nghệ thuật, yêu cái đẹp. Chúng tôi không mong muốn gì hơn chính là sự hài lòng cũng như nụ cười của khách hàng sau khi đến với shop, sự tin tưởng của các bạn là động lực rất lớn để shop phấn đấu, phát triển và bền vững.
+            Mua sắm trực tuyến tại đây, bạn sẽ được: <br />
+
+            •	Mua những sản phẩm họa cụ phục vụ việc vẽ, sáng tác nghệ thuật với giá ưu đãi.<br />
+            •	Xuất xứ hàng chính hãng, rõ ràng, nắm bắt nhu cầu khách hàng.<br />
+
+            •	Giao hàng trong vòng 48h tại HCM.<br />
+
+            •	Miễn phí vận chuyển với đơn hàng từ 999k trở lên.<br />
+            Với  Little Fox, công việc sáng tạo, vẽ tranh, thiết kế của bạn cũng trở nên dễ dàng và tiện lợi hơn bao giờ hết.
+            <br />
+            Ngoài cung cấp trọn gói dụng cụ vẽ mỹ thuật kiến trúc chúng tôi còn chuyên cung cấp các dụng cụ phục vụ bạn học vẽ, Luyện thi đại học kiến trúc để phục vụ các bạn thi vào các trường Đại Học mỹ thuật kiến trúc.
+        </p>
+    </div>
+    <div class="pb-10"></div>
+    <div class="text-center">
+        <a asp-action="ProductIndex" class="btnshop" style="font-family:Arial;">Đến mua hàng</a>
+    </div>
+}

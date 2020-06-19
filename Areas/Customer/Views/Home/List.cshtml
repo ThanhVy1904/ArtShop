@@ -1,0 +1,54 @@
+﻿@model ArtShop.Models.ViewModels.ProductIndexViewModel
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+}
+
+        <!-- Home Slider
+        ============================================ -->
+        <div class="slider-area-1 top-header-space-1  pb-50">
+            <div id="mainSlider-1" class="nivoSlider slider-image">
+                <a href="#"><img src="~/img/slider/7.jpg" alt="main slider" /></a>
+                <a href="#"><img src="~/img/slider/8.jpg" alt="main slider" /></a>
+                <a href="#"><img src="~/img/slider/9.jpg" alt="main slider" /></a>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+
+            <ul class="breadcrumbs">
+                <li></li>
+                <li></li>
+                <li><a asp-area="" asp-action="ProductIndex" asp-controller="Home"><span style="color: gray;">Tất cả sản phẩm   /</span></a></li>
+
+                <li><span>@Model.CurrentCategory</span></li>
+            </ul>
+        </div>
+
+        <!-- Product Short By -->
+        <div class="pro-short-by text-left ">
+            <p>Sắp xếp theo: </p>
+            <select>
+
+                <option value="1">Theo thứ tự từ A - Z</option>
+                <option value="2">Theo thứ tự từ Z - A</option>
+                <option value="3">Giá thấp đến cao</option>
+                <option value="4">Giá cao đến thấp</option>
+
+            </select>
+
+        </div>
+
+        
+
+        
+
+        <div class="bg-1 container row">
+
+            @foreach (var item in Model.Product)
+            {
+                <div class="" id="product-wrapper">
+                    <partial name="_ProductAreaPartial" model="item" />
+                </div>
+            }
+        </div>

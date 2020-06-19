@@ -1,0 +1,110 @@
+﻿@model ArtShop.Models.ViewModels.OrderDetailCart
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form method="post">
+    <div class="pb-150"></div>
+    <div class="col-xs-12">
+
+        <ul class="breadcrumbs">
+            <li></li>
+            <li></li>
+            <li><a asp-area="" asp-action="Index" asp-controller="Home"><span style="color: gray;">Trang chủ /</span></a></li>
+            
+            <li><span>Giỏ hàng</span></li>
+        </ul>
+    </div>
+
+    @if (Model.listCart.Count > 0)
+    {
+        
+        <input id="userId" asp-for="@Model.listCart[0].ApplicationUserId" hidden />
+
+        <!-- Cart Area
+        ============================================ -->
+        <div class="cart-area pb-90 pt-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="cart-table table-responsive mb-50">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th class="product">Sản phẩm</th>
+                                        <th class="price">Giá tiền</th>
+                                        
+                                        <th class="qty">Số lượng</th>
+                                        <th class="remove">Xóa</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.listCart)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <div class="cart-product text-left fix">
+                                                <img src="@item.Product.ImgUrl" alt="" />
+                                                <div class="details fix">
+                                                    <a href="#">@item.Product.ProductName</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><p class="cart-price">@item.Product.Price <span>x</span> @item.Count</p></td>
+                                       
+                                        <td>
+                                            <div class="cart-pro-qunantuty">
+                                                <div class="">
+                                                    <button type="submit" class="btn btn-primary" asp-action="plus" asp-route-cartId="@item.Id">
+                                                        <i class="fas fa-caret-up"></i>
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger" asp-action="minus" asp-route-cartId="@item.Id">
+                                                        <i class="fas fa-caret-down"></i>
+                                                    </button>
+                                                </div>
+                                               
+                                            </div>
+                                        </td>
+                                        <td><button class="cart-pro-remove" type="submit" asp-action="remove" asp-route-cartId="@item.Id"><i class="zmdi zmdi-close"></i></button></td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="procced-checkout col-lg-6 col-xs-12">
+                        <h4>Thành tiền</h4>
+                        <ul>
+
+                            <li><span class="name">Tổng cộng (VND)</span><span class="price" id="txtOrderTotal">@Model.OrderHeader.OrderTotal</span></li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span><strong>HÌNH THỨC THANH TOÁN</strong></span>
+                                <span><a asp-action="SummaryCod" asp-area="Customer" asp-controller="Cart" class="checkout-link" style="background-color:whitesmoke; color:orangered; "><strong>tiền mặt</strong></a></span>
+                                <span><a asp-action="Summary" asp-area="Customer" asp-controller="Cart" class="checkout-link">thẻ VISA</a></span>
+                                
+                            </li>
+                            
+                        </ul>
+                        <a asp-action="ProductIndex" asp-controller="Home" asp-area="" class="checkout-link" style="background-color:black; border:none;">Tiếp tục mua hàng</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+    }
+    else
+    {
+        <div class="bg-1">Giỏ hàng đang trống...</div>
+    }
+
+</form>

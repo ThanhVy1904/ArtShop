@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<style>
+    .btnlogout {
+        border: none;
+        background-color: inherit;
+        color:white;
+        font-family:.VnRevue;
+        font-size: 16px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+        .btnlogout:hover {
+            background: inherit;
+            color:orange;
+        }
+  
+</style>
+
+<ul class="acc-menu-dropdown dropdown-menu right">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@await Component.InvokeAsync("UserName")</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="btnlogout" text-light">ĐĂNG XUẤT</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Đăng ký</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+        </li>
+    }
+
+</ul>

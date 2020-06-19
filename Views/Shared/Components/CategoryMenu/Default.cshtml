@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Category>
+
+<li>
+    <a asp-action="ProductIndex" asp-controller="Home" asp-area="Customer">Tất cả sản phẩm</a>
+    <div class="sub-menu">
+        <ul>
+            @foreach(var category in Model)
+            {
+                <li>
+                    <a asp-controller="Home"  asp-action="List" asp-route-category="@category.CategoryName">@category.CategoryName</a>
+                </li>
+            }
+        </ul>
+
+    </div>
+</li>

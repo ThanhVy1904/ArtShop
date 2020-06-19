@@ -1,0 +1,27 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Tạo mới";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="pb-100"></div>
+<br />
+<h2 class="text-info">Tạo danh mục mới</h2>
+<br />
+
+<form method="post" asp-action="Them">
+    <div class="border bg-1">
+        <div class="row">
+            <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="control-label">Tên danh mục:</label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>               
+                <partial name="_CreateAndBackBtnPartial" />
+            </div>
+        </div>
+    </div>
+</form>
+
